@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Trig Visualizer</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <div class="main">
+            <div id="graph_window">
+                <div class="grid">
+                    <div id="q1_triangle_line" class="q_triangle_line"></div>
+                    <div id="q2_triangle_line" class="q_triangle_line"></div>
+                    <div id="q3_triangle_line" class="q_triangle_line"></div>
+                    <div id="q4_triangle_line" class="q_triangle_line"></div>
+
+                    <div id="y_axis"></div>
+                    <div id="x_axis"></div>
+
+                    <div id="q1_angle" class="q_angle"></div>
+                    <div id="q2_angle" class="q_angle"></div>
+                    <div id="q3_angle" class="q_angle"></div>
+                    <div id="q4_angle" class="q_angle"></div>
+
+                    <div id="q1_button" class="q_button"></div>
+                    <div id="q2_button" class="q_button"></div>
+                    <div id="q3_button" class="q_button"></div>
+                    <div id="q4_button" class="q_button"></div>
+
+                    <div id="coords_info">(0, 0)</div>
+                </div>
+            </div>
+            <div id="right_side">
+                <div class="top">
+                    <h1 id="data">Data</h1>
+                    <div class="form_holder">
+                        <label for="angle_input">Angle (°): </label>
+                        <input type="number" name="angle_input" id="angle_input">
+                    </div>
+                </div>
+                <div class="bottom">
+                    <h1 id="settings">Settings</h1>
+                </div>
+            </div>
+        </div>
+        <script src="app.js"></script>
+    </body>
+</html>
