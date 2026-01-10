@@ -30,8 +30,35 @@ window.onmouseup = () => {
     mouseDown = false;
 }
 
+document.querySelector("#angle_input").addEventListener("change", (event) => {
+    console.log(event.target.value);
+    let distanceToPoint = Math.sqrt(FINAL_POSITION.x**2 + FINAL_POSITION.y**2);
+    let angleInRadians = (event.target.value) * (Math.PI / 180);
+    console.log(Math.sin(angleInRadians));
+    let newX = distanceToPoint * Math.cos(angleInRadians);
+    let newY = -distanceToPoint * Math.sin(angleInRadians);
+    FINAL_POSITION = {x: newX, y: newY};
+    updateGraph();
+});
+
+document.querySelector("#x_input").addEventListener("change", (event) => {
+    FINAL_POSITION.x = event.target.value * graphScale;
+    updateGraph();
+});
+
+document.querySelector("#y_input").addEventListener("change", (event) => {
+    FINAL_POSITION.y = -event.target.value * graphScale;
+    updateGraph();
+});
+
+
 function pixelsToUnits(pixels) {
-    return Math.round(pixels / graphScale * 100) / 100;
+    return roundToDecimalPlaces(pixels / graphScale, 2);
+}
+
+function roundToDecimalPlaces(number, decimals) {
+    let multiplier = 10**decimals;
+    return Math.round(number * multiplier) / multiplier;
 }
 
 function registerMouseLocation() {
@@ -67,7 +94,9 @@ function updateGraph() {
     document.querySelector("#coords_info").style.transform = `translate3d(${FINAL_POSITION.x}px, ${FINAL_POSITION.y}px, 0px)`;
     document.querySelector("#coords_info").innerText = `(${pixelsToUnits(FINAL_POSITION.x)}, ${pixelsToUnits(-FINAL_POSITION.y)})`;
 
-    document.querySelector("#angle_input").value = -angleToMouse;
+    document.querySelector("#angle_input").value = roundToDecimalPlaces((-angleToMouse < 0 ? 360-angleToMouse : -angleToMouse), 2);
+    document.querySelector("#x_input").value = pixelsToUnits(FINAL_POSITION.x);
+    document.querySelector("#y_input").value = pixelsToUnits(-FINAL_POSITION.y);
 }
 
 function isMouseInGraph() {

@@ -27,6 +27,11 @@
                     <div id="q3_button" class="q_button"></div>
                     <div id="q4_button" class="q_button"></div>
 
+                    <div id="q1_text" class="q_text">A</div>
+                    <div id="q2_text" class="q_text">S</div>
+                    <div id="q3_text" class="q_text">T</div>
+                    <div id="q4_text" class="q_text">C</div>
+
                     <div id="coords_info">(0, 0)</div>
                 </div>
             </div>
@@ -35,7 +40,14 @@
                     <h1 id="data">Data</h1>
                     <div class="form_holder">
                         <label for="angle_input">Angle (°): </label>
-                        <input type="number" name="angle_input" id="angle_input">
+                        <input type="number" name="angle_input" id="angle_input" step="0.5">
+                        <h2 id="position_label">Position</h2>
+                        <div id="position_styles">
+                            <label for="x_input">X: </label>
+                            <input type="number" name="x_input" id="x_input" step="0.5">
+                            <label for="y_input">Y: </label>
+                            <input type="number" name="y_input" id="y_input" step="0.5">
+                        </div>
                     </div>
                 </div>
                 <div class="bottom">
