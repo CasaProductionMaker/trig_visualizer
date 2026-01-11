@@ -14,6 +14,8 @@
                     <div id="q3_triangle_line" class="q_triangle_line"></div>
                     <div id="q4_triangle_line" class="q_triangle_line"></div>
 
+                    <canvas id="angle_display" width="100" height="100"></canvas>
+
                     <div id="y_axis"></div>
                     <div id="x_axis"></div>
 
@@ -21,6 +23,9 @@
                     <div id="q2_angle" class="q_angle"></div>
                     <div id="q3_angle" class="q_angle"></div>
                     <div id="q4_angle" class="q_angle"></div>
+
+                    <div id="y_label">Y</div>
+                    <div id="x_label">X</div>
 
                     <div id="q1_button" class="q_button"></div>
                     <div id="q2_button" class="q_button"></div>
@@ -39,19 +44,46 @@
                 <div class="top">
                     <h1 id="data">Data</h1>
                     <div class="form_holder">
-                        <label for="angle_input">Angle (°): </label>
-                        <input type="number" name="angle_input" id="angle_input" step="0.5">
-                        <h2 id="position_label">Position</h2>
-                        <div id="position_styles">
+                        <div class="form_section">
+                            <label id="theta_label" for="angle_input">Angle (θ°): </label>
+                            <input type="number" name="angle_input" id="angle_input" step="0.5">
+                        </div>
+
+                        <div class="form_section">
+                            <label id="ref_angle_label" for="ref_angle_input">Reference Angle (ref°): </label>
+                            <input type="number" name="ref_angle_input" id="ref_angle_input" step="0.5">
+                        </div>
+
+                        <h2 class="form_label">Position</h2>
+                        <div class="form_section">
                             <label for="x_input">X: </label>
                             <input type="number" name="x_input" id="x_input" step="0.5">
                             <label for="y_input">Y: </label>
                             <input type="number" name="y_input" id="y_input" step="0.5">
                         </div>
+
+                        <div class="form_section">
+                            <label for="sin_theta_input">Sin θ: </label>
+                            <input type="number" name="sin_theta_input" id="sin_theta_input" step="0.1" min="0" max="1">
+                        </div>
+                        <div class="form_section">
+                            <label for="cos_theta_input">Cos θ: </label>
+                            <input type="number" name="cos_theta_input" id="cos_theta_input" step="0.1" min="0" max="1">
+                        </div>
+                        <div class="form_section">
+                            <label for="tan_theta_input">Tan θ: </label>
+                            <input type="number" name="tan_theta_input" id="tan_theta_input" step="0.1">
+                        </div>
                     </div>
                 </div>
                 <div class="bottom">
                     <h1 id="settings">Settings</h1>
+                    <div class="form_holder">
+                        <div class="form_section">
+                            <label for="is_alternate_astc">Use Alternate ASTC </label>
+                            <input type="checkbox" name="is_alternate_astc" id="is_alternate_astc">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

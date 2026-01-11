@@ -5,6 +5,8 @@ let FINAL_POSITION = {x: graphScale, y: -graphScale};
 
 updateGraph();
 
+// Event Listeners
+
 window.addEventListener('mousemove', (event) => {
     mousePos = {x: event.clientX, y: event.clientY};
 
@@ -31,10 +33,35 @@ window.onmouseup = () => {
 }
 
 document.querySelector("#angle_input").addEventListener("change", (event) => {
-    console.log(event.target.value);
     let distanceToPoint = Math.sqrt(FINAL_POSITION.x**2 + FINAL_POSITION.y**2);
     let angleInRadians = (event.target.value) * (Math.PI / 180);
-    console.log(Math.sin(angleInRadians));
+    let newX = distanceToPoint * Math.cos(angleInRadians);
+    let newY = -distanceToPoint * Math.sin(angleInRadians);
+    FINAL_POSITION = {x: newX, y: newY};
+    updateGraph();
+});
+
+document.querySelector("#sin_theta_input").addEventListener("change", (event) => {
+    let distanceToPoint = Math.sqrt(FINAL_POSITION.x**2 + FINAL_POSITION.y**2);
+    let angleInRadians = Math.asin(event.target.value);
+    let newX = distanceToPoint * Math.cos(angleInRadians);
+    let newY = -distanceToPoint * Math.sin(angleInRadians);
+    FINAL_POSITION = {x: newX, y: newY};
+    updateGraph();
+});
+
+document.querySelector("#cos_theta_input").addEventListener("change", (event) => {
+    let distanceToPoint = Math.sqrt(FINAL_POSITION.x**2 + FINAL_POSITION.y**2);
+    let angleInRadians = Math.acos(event.target.value);
+    let newX = distanceToPoint * Math.cos(angleInRadians);
+    let newY = -distanceToPoint * Math.sin(angleInRadians);
+    FINAL_POSITION = {x: newX, y: newY};
+    updateGraph();
+});
+
+document.querySelector("#tan_theta_input").addEventListener("change", (event) => {
+    let distanceToPoint = Math.sqrt(FINAL_POSITION.x**2 + FINAL_POSITION.y**2);
+    let angleInRadians = Math.atan(event.target.value);
     let newX = distanceToPoint * Math.cos(angleInRadians);
     let newY = -distanceToPoint * Math.sin(angleInRadians);
     FINAL_POSITION = {x: newX, y: newY};
@@ -51,6 +78,39 @@ document.querySelector("#y_input").addEventListener("change", (event) => {
     updateGraph();
 });
 
+document.querySelector("#q1_text").addEventListener("mouseover", (event) => {
+    event.target.innerText = "All";
+});
+
+document.querySelector("#q1_text").addEventListener("mouseout", (event) => {
+    event.target.innerText = "A";
+});
+
+document.querySelector("#q2_text").addEventListener("mouseover", (event) => {
+    event.target.innerText = "Students";
+});
+
+document.querySelector("#q2_text").addEventListener("mouseout", (event) => {
+    event.target.innerText = "S";
+});
+
+document.querySelector("#q3_text").addEventListener("mouseover", (event) => {
+    event.target.innerText = "Take";
+});
+
+document.querySelector("#q3_text").addEventListener("mouseout", (event) => {
+    event.target.innerText = "T";
+});
+
+document.querySelector("#q4_text").addEventListener("mouseover", (event) => {
+    event.target.innerText = document.querySelector("#is_alternate_astc").checked ? "Cocaine" : "Calculus";
+});
+
+document.querySelector("#q4_text").addEventListener("mouseout", (event) => {
+    event.target.innerText = "C";
+});
+
+// Functions
 
 function pixelsToUnits(pixels) {
     return roundToDecimalPlaces(pixels / graphScale, 2);
@@ -72,6 +132,15 @@ function registerMouseLocation() {
 
 function updateGraph() {
     let angleToMouse = Math.atan2(FINAL_POSITION.y, FINAL_POSITION.x) * (180 / Math.PI);
+    let angleToMouse360 = (-angleToMouse < 0 ? 360-angleToMouse : -angleToMouse);
+
+    let referenceAngle = angleToMouse360;
+    if (referenceAngle > 90 && referenceAngle < 180) referenceAngle = 180 - referenceAngle;
+    if (referenceAngle > 180 && referenceAngle < 270) referenceAngle = referenceAngle - 180;
+    if (referenceAngle > 270 && referenceAngle < 360) referenceAngle = 360 - referenceAngle;
+
+    // Graph updates
+
     document.querySelector("#q1_angle").style.transform = `rotate(${angleToMouse}deg)`;
     document.querySelector("#q2_angle").style.transform = `rotate(${180 - angleToMouse}deg)`;
     document.querySelector("#q3_angle").style.transform = `rotate(${angleToMouse + 180}deg)`;
@@ -94,9 +163,34 @@ function updateGraph() {
     document.querySelector("#coords_info").style.transform = `translate3d(${FINAL_POSITION.x}px, ${FINAL_POSITION.y}px, 0px)`;
     document.querySelector("#coords_info").innerText = `(${pixelsToUnits(FINAL_POSITION.x)}, ${pixelsToUnits(-FINAL_POSITION.y)})`;
 
-    document.querySelector("#angle_input").value = roundToDecimalPlaces((-angleToMouse < 0 ? 360-angleToMouse : -angleToMouse), 2);
+    document.querySelector("#x_label").style.transform = `translate3d(${FINAL_POSITION.x/2}px, 0px, 0px)`;
+    document.querySelector("#y_label").style.transform = `translate3d(${FINAL_POSITION.x}px, ${FINAL_POSITION.y/2}px, 0px)`;
+
+    var c = document.querySelector("#angle_display");
+    var ctx = c.getContext("2d");
+    ctx.clearRect(0, 0, 100, 100);
+    ctx.strokeStyle = "#ff7451";
+    ctx.beginPath();
+    ctx.lineWidth = 1;
+    ctx.arc(50, 50, 15, (2 * Math.PI) - (referenceAngle * (Math.PI / 180)), 2 * Math.PI);
+    ctx.stroke();
+    ctx.strokeStyle = "#ffb951";
+    ctx.beginPath();
+    ctx.arc(50, 50, 25, (2 * Math.PI) - (angleToMouse360 * (Math.PI / 180)), 2 * Math.PI);
+    ctx.stroke()
+
+    // Input updates
+
+    document.querySelector("#angle_input").value = roundToDecimalPlaces(angleToMouse360, 2);
+
+    document.querySelector("#ref_angle_input").value = roundToDecimalPlaces(referenceAngle, 2);
+
     document.querySelector("#x_input").value = pixelsToUnits(FINAL_POSITION.x);
     document.querySelector("#y_input").value = pixelsToUnits(-FINAL_POSITION.y);
+
+    document.querySelector("#sin_theta_input").value = roundToDecimalPlaces(Math.sin(angleToMouse360 * (Math.PI / 180)), 4);
+    document.querySelector("#cos_theta_input").value = roundToDecimalPlaces(Math.cos(angleToMouse360 * (Math.PI / 180)), 4);
+    document.querySelector("#tan_theta_input").value = roundToDecimalPlaces(Math.tan(angleToMouse360 * (Math.PI / 180)), 4);
 }
 
 function isMouseInGraph() {
