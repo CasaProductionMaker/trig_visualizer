@@ -7,7 +7,7 @@ updateGraph();
 
 // Event Listeners
 
-window.addEventListener('mousemove', (event) => {
+window.addEventListener('pointermove', (event) => {
     mousePos = {x: event.clientX, y: event.clientY};
 
     if (!mouseDown) return;
@@ -20,17 +20,17 @@ window.addEventListener('mousemove', (event) => {
     updateGraph();
 });
 
-window.onmousedown = () => {
+window.addEventListener('pointerdown', (event) => {
     if (!isMouseInGraph()) return;
     mouseDown = true;
 
     registerMouseLocation();
 
     updateGraph();
-}
-window.onmouseup = () => {
+});
+window.addEventListener('pointerup', (event) => {
     mouseDown = false;
-}
+});
 
 document.querySelector("#angle_input").addEventListener("change", (event) => {
     let distanceToPoint = Math.sqrt(FINAL_POSITION.x**2 + FINAL_POSITION.y**2);
