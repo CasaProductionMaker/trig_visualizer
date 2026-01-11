@@ -165,6 +165,8 @@ function updateGraph() {
 
     document.querySelector("#x_label").style.transform = `translate3d(${FINAL_POSITION.x/2}px, 0px, 0px)`;
     document.querySelector("#y_label").style.transform = `translate3d(${FINAL_POSITION.x}px, ${FINAL_POSITION.y/2}px, 0px)`;
+    document.querySelector("#x_label").innerText = document.querySelector("#show_x_and_y_labels").checked ? "X" : "";
+    document.querySelector("#y_label").innerText = document.querySelector("#show_x_and_y_labels").checked ? "Y" : "";
 
     var c = document.querySelector("#angle_display");
     var ctx = c.getContext("2d");
