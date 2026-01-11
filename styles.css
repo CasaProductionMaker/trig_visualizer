@@ -1,5 +1,4 @@
 * {
-    touch-action: none;
     user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
@@ -35,6 +34,7 @@ body {
     background-color: #333;
     overflow: hidden;
     position: relative;
+    touch-action: none;
 }
 
 #right_side {
