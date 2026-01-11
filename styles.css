@@ -35,7 +35,6 @@ body {
     background-color: #333;
     overflow: hidden;
     position: relative;
-    min-height: 40vh;
 }
 
 #right_side {
@@ -264,7 +263,12 @@ input:focus {
 @media (max-width: 600px) {
     .main {
         height: 90%;
+        max-height: 90%;
         overflow-y: scroll;
         flex-direction: column;
+    }
+
+    #right_side {
+        height: 50%;
     }
 }
