@@ -11,7 +11,7 @@ window.addEventListener('pointermove', (event) => {
     mousePos = {x: event.clientX, y: event.clientY};
 
     if (!mouseDown) return;
-    if (!isMouseInGraph()) return;
+    if (!isMouseInGraph(event)) return;
 
     let screenDim = {x: window.innerWidth, y: window.innerHeight};
 
@@ -21,7 +21,7 @@ window.addEventListener('pointermove', (event) => {
 });
 
 window.addEventListener('pointerdown', (event) => {
-    if (!isMouseInGraph()) return;
+    if (!isMouseInGraph(event)) return;
     mouseDown = true;
 
     registerMouseLocation();
@@ -195,8 +195,6 @@ function updateGraph() {
     document.querySelector("#tan_theta_input").value = roundToDecimalPlaces(Math.tan(angleToMouse360 * (Math.PI / 180)), 4);
 }
 
-function isMouseInGraph() {
-    const graphWindow = document.querySelector("#graph_window");
-    const rect = graphWindow.getBoundingClientRect();
-    return mousePos.x >= rect.left && mousePos.x <= rect.left + rect.width && mousePos.y >= rect.top && mousePos.y <= rect.top + rect.height;
+function isMouseInGraph(e) {
+    return e.target.closest("#graph_window") !== null;
 }
